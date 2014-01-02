@@ -1,0 +1,43 @@
+Phase: Main1
+Input: Token SpaceToken Lookup Sentence Date
+Options:control = first
+
+Rule: Rule1
+Priority: 100
+((
+	(
+		(
+			{Lookup.majorType==greeting}
+			({SpaceToken}|{Token.orth == upperInitial})*
+		)|
+		(	
+			{Token.string == "To"}
+			{Token.string ==":"}
+		)
+	)
+	({SpaceToken}|{Token})*
+	(
+		(	
+			{Token.string == "["}
+			{Token.string == "Quoted"}
+			{SpaceToken}
+			{Token.string == "text"}
+			{SpaceToken}
+			{Token.string == "hidden"}
+			{Token.string == "]"}
+		)|
+		(	
+			{Token.string == "On"}
+			{SpaceToken}
+			{Date}
+		)
+		|
+		(	
+			{Lookup.majorType==greeting}
+			({SpaceToken}|{Token.orth == upperInitial})+
+		)
+	)
+):r1)
+-->
+:r1.Main1={}
+

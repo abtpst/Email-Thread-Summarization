@@ -1,0 +1,27 @@
+Imports: { import static gate.Utils.*; }
+Phase: Date
+Input:  SpaceToken Token 
+Options: control = appelt
+
+Rule: Date
+(	
+({Token.string=="Mon"}|{Token.string=="Tue"}|{Token.string=="Wed"}|{Token.string=="Thu"}|{Token.string=="Fri"}|{Token.string=="Sat"}|{Token.string=="Sun"})
+{Token.string==","}
+({SpaceToken})+
+({Token.string=="Jan"}|{Token.string=="Feb"}|{Token.string=="Mar"}|{Token.string=="Apr"}|{Token.string=="May"}|{Token.string=="Jun"}|{Token.string=="Jul"}|{Token.string=="Aug"}|{Token.string=="Sep"}|{Token.string=="Oct"}|{Token.string=="Nov"}|{Token.string=="Dec"})
+({SpaceToken})+
+{Token.kind=="number"}
+{Token.string==","}
+({SpaceToken})+
+{Token.kind=="number"}
+({SpaceToken})+
+{Token.string=="at"}
+({SpaceToken})+
+{Token.kind=="number"}
+{Token.string==":"}
+{Token.kind=="number"}
+({SpaceToken})+
+({Token.string=="AM"}|{Token.string=="PM"})
+):tl
+-->
+:tl.Date={}

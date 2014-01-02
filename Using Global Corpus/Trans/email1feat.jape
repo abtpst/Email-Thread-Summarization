@@ -1,0 +1,53 @@
+Imports: { import static gate.Utils.*; }
+Phase: Email1Feat
+Input: Email1
+Options: control = appelt
+
+Rule: Email1Feat
+(
+	({Email1}):eml
+)
+-->
+:eml{
+
+//	emlAnnots.iterator().next().put("Value",stringFor(doc,emlAnnots));
+
+	AnnotationSet nvn = inputAS.get("Valid").getContained(start(emlAnnots), end(emlAnnots));
+	
+	HashMap<String, Integer> nouncounter = new HashMap<String, Integer>();
+	
+	HashMap<String, Integer> nouns = new HashMap<String, Integer>();
+	
+	
+	for (Annotation n : nvn)
+	{
+		//nouns=n.getFeatures().get("Nouns");
+			//System.out.println(n.getFeatures().get("Nouns"));
+		
+		nouns=(HashMap<String, Integer>)n.getFeatures().get("Nouns");
+		
+		for(Map.Entry <String, Integer> entry : nouns.entrySet())
+		{
+		
+		String s=entry.getKey();
+		
+		boolean hasNonAlpha = s.matches("^.*[^a-zA-Z0-9 ].*$");
+			if(!s.isEmpty() && !hasNonAlpha)
+			{
+			if(nouncounter.containsKey(s))
+				nouncounter.put(s, nouncounter.get(s)+1);
+						
+			else
+				nouncounter.put(s, 1);
+			}		
+		}	
+		
+	}
+	/*System.out.println("Map");
+	for ( Map.Entry<String, Integer> entry : nouncounter.entrySet()) 
+		 {
+			 System.out.println(entry.getKey()+" "+entry.getValue());
+		 }*/
+		 
+		 emlAnnots.iterator().next().getFeatures().put("NounMap",nouncounter);
+}

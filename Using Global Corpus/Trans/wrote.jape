@@ -1,0 +1,12 @@
+Imports: { import static gate.Utils.*; }
+Phase: Wrote
+Input: Token
+Options: control = appelt
+
+Rule: Wrote
+(
+	{Token.string=="wrote"}
+	{Token.string==":"}
+):w
+-->
+:w.WW={}

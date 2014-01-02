@@ -1,0 +1,17 @@
+Imports: { import static gate.Utils.*; }
+Phase: QTH
+Input: Token 
+Options: control = appelt
+
+Rule: QTH
+(	
+	
+	{Token.string=="["}
+	{Token.string=="Quoted"}
+	{Token.string=="text"}
+	{Token.string=="hidden"}
+	{Token.string=="]"}
+
+):tl
+-->
+:tl.QTH={}

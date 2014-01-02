@@ -1,0 +1,44 @@
+Imports: { import static gate.Utils.*; }
+Phase: SentFeat
+Input: Sent 
+Options: control = appelt
+
+Rule: SentFeat
+(
+	({Sent}):snt
+)
+-->
+:snt{
+
+	AnnotationSet tokens = inputAS.get("Token").getContained(start(sntAnnots), end(sntAnnots));
+ 	
+ 	HashMap<String, Integer> nouncounter = new HashMap<String, Integer>();
+ 	
+	for(Annotation a : tokens)
+	{
+		String term;
+		  
+		if(a.getFeatures().get("category").toString().substring(0,1).equalsIgnoreCase("n"))
+			{
+				term = a.getFeatures().get("string").toString().toLowerCase();
+				
+				if(!term.contains(".*\\W+.*"))
+				{
+					if(nouncounter.containsKey(term))
+							nouncounter.put(term, nouncounter.get(term)+1);
+						else
+							nouncounter.put(term, 1);
+			
+				}
+			}
+			
+	}
+	
+	String val = stringFor(doc, sntAnnots);
+	
+	sntAnnots.iterator().next().getFeatures().put("Nouns",nouncounter);
+	
+	sntAnnots.iterator().next().getFeatures().put("Value",val);
+	
+	sntAnnots.iterator().next().getFeatures().put("Size",val.split(" ").length);
+}

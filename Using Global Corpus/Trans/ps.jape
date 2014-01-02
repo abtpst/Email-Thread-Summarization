@@ -1,0 +1,18 @@
+Imports: { import static gate.Utils.*; }
+Phase: PS
+Input: Para
+Options: control = appelt
+
+Rule: PS
+(
+	{Para}
+):p
+-->
+:p{
+		AnnotationSet vgs = inputAS.get("Sentence").getContained(start(pAnnots), end(pAnnots));
+	
+		for(Annotation v : vgs)
+			v.getFeatures().put("Kind","P");
+	
+}
+ 

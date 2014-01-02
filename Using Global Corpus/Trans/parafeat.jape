@@ -1,0 +1,13 @@
+Imports: { import static gate.Utils.*; }
+Phase: ParaFeat
+Input: Para
+Options: control = appelt
+
+Rule: ParaFeat
+(
+	({Para}):eml
+)
+-->
+:eml{
+		 emlAnnots.iterator().next().getFeatures().put("Value",stringFor(doc, emlAnnots));
+}

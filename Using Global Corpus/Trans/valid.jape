@@ -1,0 +1,11 @@
+Imports: { import static gate.Utils.*; }
+Phase: Valid
+Input: VG Sent
+Options: control = appelt
+
+Rule: Valid
+(	
+	{Sent contains VG.Kind!="Bad"}
+):v
+-->
+:v.Valid={}

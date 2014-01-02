@@ -1,0 +1,11 @@
+Imports: { import static gate.Utils.*; }
+Phase: ParaSent
+Input: Sentence
+Options: control = appelt
+
+Rule: ParaSent
+(
+	{Sentence.Kind=="P"}
+):p
+-->
+:p.ParaSentence={}

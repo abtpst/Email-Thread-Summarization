@@ -1,0 +1,24 @@
+Imports: { import static gate.Utils.*; }
+
+Phase: FirstSent
+
+Input: Token BP FT
+
+Options: control=appelt
+
+Rule: FirstSent
+
+(
+({FT}
+({Token,Token notWithin BP})+
+):fs
+)
+
+-->
+{
+  AnnotationSet rSet = bindings.get("fs");
+
+  FeatureMap features = Factory.newFeatureMap();
+  
+  outputAS.add(rSet.firstNode(), rSet.lastNode(), "First", features);
+}

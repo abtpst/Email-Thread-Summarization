@@ -1,0 +1,27 @@
+Imports: { import static gate.Utils.*; }
+
+Phase: EmailID
+
+Input: Token
+
+Options: control = appelt
+
+Rule: EmailID
+(
+	({Token.string=="<"}|{Token.string=="\""})?
+	
+	{Token}
+	
+	(({Token.string=="."}{Token})+)?
+	
+	{Token.string=="@"}
+		
+	({Token} {Token.string=="."})+
+	
+	{Token}
+	
+	({Token.string==">"}|{Token.string=="\""})?
+	
+):emid
+-->
+:emid.EmailID={}

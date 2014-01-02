@@ -1,0 +1,17 @@
+Imports: { import static gate.Utils.*; }
+
+Phase: Sent
+
+Input:  Token Stopper BP QTH
+
+Options: control=appelt
+
+Rule: Sent
+(
+
+({Stopper}|{BP})
+({Token, Token notWithin Stopper, Token notWithin QTH, Token notWithin BP})+:snt
+	
+)			
+-->
+:snt.Sent={}

@@ -1,0 +1,15 @@
+Imports: { import static gate.Utils.*; }
+
+Phase: Subject
+
+Input: Token
+
+Options: control = once
+
+Rule: Subject
+(
+{Token.string=="Subject"}
+({Token})[0,10]
+):sub
+-->
+:sub.Subject={}

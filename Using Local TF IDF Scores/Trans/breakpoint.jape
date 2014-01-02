@@ -1,0 +1,12 @@
+Imports: { import static gate.Utils.*; }
+
+Phase: BreakPoint
+
+Input: Token
+
+Rule: BreakPoint
+(
+	({Token.category==".",Token.kind=="punctuation"}|{Token.category=="?",Token.kind=="punctuation"})
+):bp
+-->
+:bp.BP={}

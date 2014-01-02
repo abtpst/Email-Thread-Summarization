@@ -1,0 +1,16 @@
+Imports: { import static gate.Utils.*; }
+
+Phase: FirstToken
+
+Input: Token 
+
+Options: control=once
+
+Rule: FirstToken
+
+(
+{Token}
+):ft
+
+-->
+:ft.FT={}

@@ -1,0 +1,40 @@
+Imports: { import static gate.Utils.*; }
+Phase: TO2
+Input: SpaceToken Token S
+Options: control = appelt
+
+Rule: TO2
+(
+	
+	{Token.string=="To"}
+	{Token.string==":"}
+	
+	(({Token.string!="com"}|{SpaceToken})+
+	({S})*)+
+	{Token.string=="."}
+	
+	({Token.string=="com"}|{Token.string=="co"})
+	
+	({Token.string==">"})?
+	({SpaceToken})?
+	
+	(
+	({Token.string=="Cc"}|{Token.string=="Bcc"})
+	{Token.string==":"}
+	
+	(({Token.string!="com"}|{SpaceToken})+
+	({S})*)+
+	
+	//{Token.string=="."}
+	
+	({Token.string=="com"}|{Token.string=="co"})
+	
+	({Token.string==">"})?
+	({SpaceToken})*
+	
+	)[0,2]
+	
+):t
+-->
+:t.T2={}
+ 

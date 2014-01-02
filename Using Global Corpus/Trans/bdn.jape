@@ -1,0 +1,25 @@
+Imports: { import static gate.Utils.*; }
+Phase: BDN
+Input: NounChunk
+Options: control = appelt
+
+Rule: BDN
+(
+	({NounChunk}):nc
+)
+-->
+:nc{
+	AnnotationSet toks = inputAS.get("Token").getContained(start(ncAnnots), end(ncAnnots));
+	int g=0;
+	for (Annotation t : toks)
+	{
+		String bs = t.getFeatures().get("string").toString();
+		
+		if(bs.contains("@")||bs.contains(">")||bs.contains("<")||bs.contains("[")||bs.contains("]"))
+			g=1;
+	}
+	
+	if(g==1)
+	ncAnnots.iterator().next().getFeatures().put("Kind","Bad");
+}
+ 

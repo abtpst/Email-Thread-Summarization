@@ -1,0 +1,22 @@
+Imports: { import static gate.Utils.*; }
+
+Phase: Sent
+
+Input: BP
+
+Rule: Sent
+
+({BP})+:left
+({BP}):right
+
+-->
+{
+  Node start = ((AnnotationSet) bindings.get("left"))
+               .lastNode();
+  Node end   = ((AnnotationSet) bindings.get("right"))
+               .firstNode();
+
+  FeatureMap features = Factory.newFeatureMap();
+
+  outputAS.add(start, end, "Sent", features);
+}

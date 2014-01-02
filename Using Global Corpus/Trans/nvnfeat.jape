@@ -1,0 +1,45 @@
+Imports: { import static gate.Utils.*; }
+Phase: NVNFeat
+Input: NVN 
+Options: control = appelt
+
+Rule: NVNFeat
+(
+	({NVN}):nvn
+)
+-->
+:nvn{
+
+	AnnotationSet tokens = inputAS.get("Token").getContained(start(nvnAnnots), end(nvnAnnots));
+ 	String verb="";
+ 	ArrayList <String> nouns = new ArrayList<String>();
+ 	for(Annotation a : tokens)
+	{
+		String term;
+		
+		
+  
+  
+		if(a.getFeatures().get("category").toString().substring(0,1).equalsIgnoreCase("n"))
+			{
+				term = a.getFeatures().get("string").toString().toLowerCase();
+				
+				if(!term.contains(".*\\W+.*"))
+				nouns.add(term);
+			
+			}
+			if(a.getFeatures().get("category").toString().substring(0,1).equalsIgnoreCase("v"))
+			{
+				verb=a.getFeatures().get("string").toString().toLowerCase();
+				
+			}
+	}
+	
+	String val = stringFor(doc, nvnAnnots);
+	
+	nvnAnnots.iterator().next().getFeatures().put("Nouns",nouns);
+	
+	nvnAnnots.iterator().next().getFeatures().put("Verb",verb);
+	
+	nvnAnnots.iterator().next().getFeatures().put("Value",val);
+}

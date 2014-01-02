@@ -1,0 +1,24 @@
+Imports: { import static gate.Utils.*; }
+
+Phase: Last
+
+Input: T Para Token 
+
+Options: control = appelt
+
+Rule: Last
+
+(
+({T}):left
+({Token,Token notWithin Para})+:right
+)
+-->
+{
+	
+ AnnotationSet rSet = bindings.get("right");
+
+  FeatureMap features = Factory.newFeatureMap();
+  
+  outputAS.add(rSet.firstNode(), rSet.lastNode(), "EmailLast", features);
+}
+

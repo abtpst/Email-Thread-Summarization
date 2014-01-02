@@ -1,0 +1,15 @@
+Imports: { import static gate.Utils.*; }
+Phase: NVN
+Input: NounChunk VG Sent
+Options: control = appelt
+
+Rule: NVN
+(	
+	
+	({NounChunk.Kind!="Bad"})[0,2]
+	{VG.Kind!="Bad", VG within Sent}
+	({NounChunk.Kind!="Bad"})[0,2]
+	
+):nvn
+-->
+:nvn.NVN={}

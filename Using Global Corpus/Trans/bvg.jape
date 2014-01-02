@@ -1,0 +1,29 @@
+Imports: { import static gate.Utils.*; }
+Phase: BVG
+Input: VG Token
+Options: control = appelt
+
+Rule: BVG
+(
+	(
+	
+	(
+	({Token.kind=="symbol"}|{Token.kind=="punctuation",Token.string!="."})
+	{VG}
+	)
+	|
+	(
+	{VG}
+	({Token.kind=="symbol"}|{Token.kind=="punctuation",Token.string!="."})
+	)
+	):q
+)
+-->
+:q{
+		AnnotationSet vgs = inputAS.get("VG").getContained(start(qAnnots), end(qAnnots));
+	
+		for(Annotation v : vgs)
+			v.getFeatures().put("Kind","Bad");
+	
+}
+ 

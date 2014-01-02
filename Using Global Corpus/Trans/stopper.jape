@@ -1,0 +1,73 @@
+Imports: { import static gate.Utils.*; }
+Phase: Stopper
+Input: EmailID Token T C 
+
+Options: control = appelt
+
+Rule: Stopper
+(	
+
+	(
+	
+		({T}|{C})
+	
+				(
+	
+					(
+	
+						({Token notWithin EmailID})+
+	
+						{EmailID}
+	
+						{Token.kind=="punctuation"}
+	
+					)+
+	
+				)?
+	
+	
+		({Token notWithin EmailID})+
+		
+		{EmailID}
+	
+	)
+	|
+	(
+	
+		(
+	
+			({T}|{C})
+	
+				(
+	
+					(
+	
+						({Token notWithin EmailID})+
+	
+						{EmailID}
+	
+						{Token.kind=="punctuation"}
+	
+					)+
+	
+				)?
+				
+			(
+				{EmailID}
+				{Token notWithin EmailID}
+			)+
+			
+				{EmailID}
+		)
+	
+		
+	)
+	|
+	(
+		({T}|{C})
+		({EmailID})+
+	)
+	
+):tl
+-->
+:tl.Stopper={}

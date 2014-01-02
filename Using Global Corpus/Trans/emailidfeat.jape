@@ -1,0 +1,32 @@
+Imports: { import static gate.Utils.*; }
+
+Phase: EmailIDFeat
+
+Input: EmailID
+
+Options: control = appelt
+
+Rule: EmailIDFeat
+(
+		({EmailID}):emidfeat
+)
+-->
+:emidfeat{
+			String login = stringFor(doc, emidfeatAnnots); 
+			
+			ArrayList<String> logins = new ArrayList<String>();
+				
+			String val = login.replaceAll("[\\W]", " ");
+			
+			String [] lognames = val.split(" ");
+			
+			for (String g : lognames)
+				{
+				g=g.toLowerCase();
+				logins.add(g);
+				}
+			
+			logins.removeAll(Arrays.asList("", null));
+			
+			emidfeatAnnots.iterator().next().getFeatures().put("Login",logins);			
+}

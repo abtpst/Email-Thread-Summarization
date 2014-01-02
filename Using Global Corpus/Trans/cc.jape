@@ -1,0 +1,14 @@
+Imports: { import static gate.Utils.*; }
+Phase: CC
+Input: Token
+
+
+Rule: CC
+(
+	
+	{Token.string=="Cc"}
+	{Token.string==":"}
+	
+):t
+-->
+:t.C={}

@@ -1,0 +1,31 @@
+Imports: { import static gate.Utils.*; }
+
+Phase: Para
+
+Input: Stopper WW QTH Token
+
+Options: control=appelt
+
+Rule: Para
+(
+	({Stopper}|{WW})
+	({Token, Token notWithin Stopper, Token notWithin QTH, Token notWithin WW})+:p
+)
+-->
+:p.Para={}
+/*Rule: Para
+
+({T}|{WW})+:left
+({T}|{WW}):right
+
+-->
+{
+  Node start = ((AnnotationSet) bindings.get("left"))
+               .lastNode();
+  Node end   = ((AnnotationSet) bindings.get("right"))
+               .firstNode();
+
+  FeatureMap features = Factory.newFeatureMap();
+
+  outputAS.add(start, end, "Para", features);
+}*/

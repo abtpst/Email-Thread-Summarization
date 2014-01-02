@@ -1,0 +1,14 @@
+Imports: { import static gate.Utils.*; }
+Phase: S
+Input: Token 
+Options: control = appelt
+
+Rule: S
+(	
+	{Token.string=="@"}	({Token} {Token.string=="."})+ {Token.string!=">"}
+	
+	({Token.string==">"})?
+		
+):tl
+-->
+:tl.S={}

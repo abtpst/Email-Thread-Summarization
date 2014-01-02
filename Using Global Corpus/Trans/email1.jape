@@ -1,0 +1,24 @@
+Imports: { import static gate.Utils.*; }
+
+Phase: Email1
+
+Input: Stopper WW QTH
+
+Options: control = once
+
+Rule: Email1
+
+({Stopper}|{WW})+:left
+({Stopper}|{QTH}|{WW}):right
+
+-->
+{
+  Node start = ((AnnotationSet) bindings.get("left"))
+               .lastNode();
+  Node end   = ((AnnotationSet) bindings.get("right"))
+               .firstNode();
+
+  FeatureMap features = Factory.newFeatureMap();
+
+  outputAS.add(start, end, "Email1", features);
+}
